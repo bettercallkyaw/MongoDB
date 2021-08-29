@@ -12,192 +12,45 @@ INSERT FIELDS
 
 use contactData
 
-db.persons.insertOne({
-    name:'Htin Kyaw',
-    age:30,
-    hoppies:['sports','cooking']
-})
+db.persons.insertOne({name:'Htin Kyaw',age:30,hoppies:['sports','cooking']})
 
-db.persons.insertMany([
-    {
-        name:'John Doe',
-        age:20,
-        hoppies:['hiking','walking']
-    }
-])
+db.persons.insertMany([{name:'John Doe',age:20,hoppies:['hiking','walking']}])
 
-db.persons.insertMany([
-    {
-        name:'ashly kate',
-        email:'ashly@gmail.com',
-        age:20
-    },
-    {
-        name:'william smith',
-        email:'william@gmail.com',
-        age:21
-    }
-])
+db.persons.insertMany([{name:'ashly kate',email:'ashly@gmail.com',age:20},{name:'william smith',email:'william@gmail.com',age:21}])
 
 -------------------------------------------------
 WRITE ERRORS
 
-db.persons.insert([
-    {
-        name:'htin kyaw',
-        age:21
-    },
-    {
-        name:'min oo',
-        age:20
-    }
-])
+db.persons.insert([{name:'htin kyaw',age:21},{name:'min oo',age:20}])
 -----------------------------------------------------
 
-db.hobbies.insertMany([
-    {
-        _id:'sports',
-        name:'Sports'
-    },
-    {
-        _id:'hiking',
-        name:'Hiking'
-    },
-    {
-        _id:'cars',
-        name:'Cars'
-    }
-])
+db.hobbies.insertMany([{_id:'sports',name:'Sports'},{_id:'hiking',name:'Hiking'},{_id:'cars',name:'Cars'}])
 
 ---------------------------------------------------------------------------------
 "errmsg" : "E11000 duplicate key error collection: Max_Mongo_Two.hoppies index: _id_ dup key: { _id: \"hiking\" }"
 
-db.hobbies.insertMany([
-    {
-        _id:'yoga',
-        name:'Yoga'
-    },
-    {
-        _id:'hiking',
-        name:'Hiking'
-    },
-    {
-        _id:'movies',
-        name:'Movies'
-    }
-])
+db.hobbies.insertMany([{_id:'yoga',name:'Yoga'},{_id:'hiking',name:'Hiking'},{_id:'movies',name:'Movies'}])
 
 db.hobbies.find().pretty()
 
-db.hobbies.insertMany([
-    {
-        _id:'walking',
-        name:'Walking'
-    },
-    {
-        _id:'hiking',
-        name:'Hiking',
-    },
-    {
-        _id:'laptop',
-        name:'laptop'
-    }
-],
-{
-    ordered:false
-})
+db.hobbies.insertMany([{_id:'walking',name:'Walking'},{_id:'hiking',name:'Hiking',},{_id:'laptop',name:'laptop'}],{ordered:false})
 -----------------------------------------------------------------------------------
 
-db.persons.insertOne(
-    {
-    name:'Htin kyaw',
-    age:32
-    },
-    {
-        writeConcern:{w: 0}
-    }
-)
+db.persons.insertOne({name:'Htin kyaw',age:32},{writeConcern:{w: 0}})
 
-db.persons.insertOne(
-    {
-        name:'Alex',
-        age:21
-    },
-    {
-        writeConcern:{w: 1}
-    }
-)
+db.persons.insertOne({name:'Alex',age:21},{writeConcern:{w: 1}})
 
-db.persons.insertOne(
-    {
-        name:'Michael',
-        age:34
-    },
-    {
-        writeConcern:{w: 1,j: false}
-    }
-)
+db.persons.insertOne({name:'Michael',age:34},{writeConcern:{w: 1,j: false}})
 
-db.persons.insertOne(
-    {
-        name:'Bon',
-        age:55
-    },
-    {
-        writeConcern:{w: 1,j: true}
-    }
-)
+db.persons.insertOne({name:'Bon',age:55},{writeConcern:{w: 1,j: true}})
 
-db.persons.insertOne(
-    {
-        name:'Aliya',
-        age:22
-    },
-    {
-        writeConcern:{w: 1,j: true,wtimeout: 200}
-    }
-)
+db.persons.insertOne({name:'Aliya',age:22},{writeConcern:{w: 1,j: true,wtimeout: 200}})
 
-db.persons.insertOne(
-    {
-        name:'Aliya',
-        age:22
-    },
-    {
-        writeConcern:{w: 1,j: true,wtimeout: 1}
-    }
-)
+db.persons.insertOne({name:'Aliya',age:22},{writeConcern:{w: 1,j: true,wtimeout: 1}})
 
-db.persons.insertOne(
-    {
-        name:'Mg Mg',
-        hobbies:[
-            {
-                title:'Sports',
-                frequency:3
-            },
-            {
-                title:'Cooking',
-                frequency:6
-            }
-        ]
-    }
-)
+db.persons.insertOne({name:'Mg Mg',hobbies:[{title:'Sports',frequency:3},{title:'Cooking',frequency:6}]})
 
-db.sales.insertMany([
-    {
-        volume:100,
-        target:120
-    },
-    {
-        volume:89,
-        target:80
-    },
-    {
-        volume:200,
-        target:177
-    }
-])
+db.sales.insertMany([{volume:100,target:120},{volume:89,target:80},{volume:200,target:177}])
 
 ----------------------------------------------------
 ----------------------------------------------------
