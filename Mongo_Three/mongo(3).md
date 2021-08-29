@@ -108,84 +108,19 @@ db.persons.find({"hobbies.frequency":{$gt:2}}).count()
 
 UPDATE FIELDS
 
-db.persons.updateOne(
-    {_id:ObjectId("5fab3d9dfd6b9fb42cc781f3")},
-    {
-        $set:{
-            hobbies:[
-                {
-                title:'Sports',
-                frequency:5
-                },
-                {
-                 title:'Cooking',
-                 frequency:3   
-                },
-                {
-                  title:'Hiking',
-                  frequency:1  
-                }
-            ]
-        }
-    }
-)
+db.persons.updateOne({_id:ObjectId("5fab3d9dfd6b9fb42cc781f3")},{$set:{hobbies:[{title:'Sports',frequency:5},{title:'Cooking',frequency:3},{title:'Hiking',frequency:1}]}})
 
 
-db.persons.updateMany(
-    {
-        "hobbies.title":"Sports"
-    },
-    {
-        $set:{
-            isSporty:true,
-            age:40,
-            phone:393939393939
-        }
-    }
-)
+db.persons.updateMany({"hobbies.title":"Sports"},{$set:{isSporty:true,age:40,
+phone:393939393939}})
 
-db.persons.updateOne(
-    {
-        name:'Htin Kyaw'
-    },
-    {
-        $inc:{age: -9}
-    }
-)
+db.persons.updateOne({name:'Htin Kyaw'},{$inc:{age: -9}})
 
-db.persons.updateOne(
-    {
-        name:'Htin Kyaw',
+db.persons.updateOne({name:'Htin Kyaw',},{$min:{age:22}})
 
-    },
-    {
-        $min:{
-            age:22
-        }
-    }
-)
+db.persons.updateOne({name:'Htin Kyaw'},{$max:{age:23}})
 
-db.persons.updateOne(
-    {
-        name:'Htin Kyaw'
-    },
-    {
-        $max:{
-            age:23
-        }
-    }
-)
-
-db.persons.updateOne(
-    {
-        name:'Htin Kyaw',
-    },
-    {
-        $max:{
-            age:40
-        }
-    }
-)
+db.persons.updateOne({name:'Htin Kyaw',},{$max:{age:40}})
 
 db.persons.updateMany({isSporty:true},{$set:{phone:null}})
 
@@ -193,44 +128,10 @@ db.persons.updateMany({isSporty:true},{$unset:{phone: ""}})
 
 db.persons.updateMany({},{$rename:{age: "totalAge"}})
 
-db.persons.updateOne(
-    {
-        name:"Mg Mg"
-    },
-    {
-        $set:{
-            age:33,
-            hobbies:[
-                {
-                    title:'Food',
-                    frequency:3
-                }
-            ],
-            isSporty:true
-        }
-    }
-)
+db.persons.updateOne({name:"Mg Mg"},{$set:{age:33,hobbies:[{title:'Food',frequency:3}],
+isSporty:true}})
 
-db.persons.updateOne(
-    {
-        name:"Mg Mg"
-    },
-    {
-        $set:{
-            age:33,
-            hobbies:[
-                {
-                    title:'Food',
-                    frequency:3
-                }
-            ],
-            isSporty:true
-        }
-    },
-    {
-        upsert:true
-    }
-)
+db.persons.updateOne({name:"Mg Mg"},{$set:{age:33,hobbies:[{title:'Food',frequency:3}],isSporty:true}},{upsert:true})
 
 db.persons.updateMany({hobbies:{$elemMatch:{title:"Sports",frequency:{$gte:3}}}},{
     $set:{
