@@ -12,8 +12,6 @@
 
   db
   
-  show collections
-
   db.dropDatabase()
 
   db.createCollection('posts')
