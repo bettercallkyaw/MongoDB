@@ -70,7 +70,7 @@ db.persons.find({age:{$type: "number"}}).pretty()
 
 db.persons.find({phone: {$type: "number"}}).pretty()
 
-db.sales.find({$expr: {$gt: ["volume","target"]}}).pretty()
+db.sales.find({$expr: {$gt: ["volume","target"]}}).pretty() 
 
 db.sales.find({$expr: {$gt: ["$volume","$target"]}}).pretty()
 
