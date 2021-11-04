@@ -139,7 +139,6 @@ db.persons.updateMany({hobbies:{$elemMatch:{title:"Sports",frequency:{$gte:3}}}}
     }
 })
 
-db.persons.updateMany({"hobbies.frequency":{$gt:2}},{})
 
 db.persons.updateMany({"hobbies.frequency":{$gt:2}},{$set:{"hobbies.$.goodfrequency":true}})
 
