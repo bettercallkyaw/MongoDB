@@ -131,7 +131,7 @@ use bookRegistry
 
 db.books.insertOne({
     name_title:'lord of the ring',
-    name2:'the king of hobbit',
+    name_title:'the king of hobbit',
     authors:[
         {
             name:'Bob Smith',
