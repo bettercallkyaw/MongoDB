@@ -6,9 +6,65 @@ db.shutdownServer()
 
 net stop mongoDB
 
+mongod --version
+
+mongo
+
+show dbs
+
+use mongodb_crud
+
+db
+
+db.dropDatabase()
+
+db.createCollection('posts')
+
+show collections
+
 ---------------------------------------------------------
 ---------------------------------------------------------
 INSERT FIELDS
+
+db.posts.insert({
+    title:'Title One',
+    body:'body one',
+    category:'Programming',
+    likes:23,
+    tags:['python','php','javascript'],
+    user:{
+      name:'Bob Smith',
+      email:'bob@testing.com',
+      age:23,
+      status:'admin'
+    },
+    date:Date()
+  })
+
+ db.posts.insertMany([
+    {
+      title:'Title Two',
+      body:'body two',
+      category:'Frameworks',
+      tags:['laravel','django','express']
+      date:Date()
+    },
+    {
+      title:'Title Three',
+      body:'body three',
+      category:'Phone',
+      tags:['huawei','apple','oppo']
+      date:Date()
+    },
+    {
+      title:'Title Four',
+      body:'body four',
+      category:'Search Engine',
+      tags:['google','yahoo','bing']
+      date:Date()
+    },
+
+  ]);
 
 use contactData
 
@@ -34,6 +90,74 @@ db.hobbies.insertMany([{_id:'yoga',name:'Yoga'},{_id:'hiking',name:'Hiking'},{_i
 db.hobbies.find().pretty()
 
 db.hobbies.insertMany([{_id:'walking',name:'Walking'},{_id:'hiking',name:'Hiking',},{_id:'laptop',name:'laptop'}],{ordered:false})
+
+db.users.insert({
+       name:"Bob Smith",
+       email:"bob@testing.com",
+       country:"USA",
+       state:"California",
+       city:"Boston",
+       age:23,
+       reviews:[
+           {
+            authorName:'William Smith',
+            rating:44,
+            review:'Best seller Books'
+           },
+           {
+             authorName:'John Doe',
+             rating:42,
+             review:'Best Seller On udemy'  
+           }
+       ],
+       bobSkill:{
+           languate:'PHP'
+       }
+   })
+
+db.users.insert({
+ firstName:'Bob',
+ lastName:'Smith',
+ fullName:'Bob Smith',
+ email:'bob@faker.com',
+ location:'USA,California State,Boston,MA 333',
+ isMarried:'comming soon',
+ hobbies:['hiking','cooking','walking'],
+ age:23,
+ language:['php','javascript','python','sql','mongodb'],
+ framework:['laravel','django','node js framework'],
+ socialMedia:[
+       {
+       facebook_account:'https:://www.facebook.com/profile.php?id=333332fjae'
+       },
+       {
+       twitter_account:'https:://www.twitter.com/bobsmith'
+       }
+ ],
+ date:Date()
+})
+
+db.users.insert({
+  fullName:'smith row',
+  family:['robet smith','kate smith','bob smith'],
+  job:'software developer',
+  age:22,
+  salary:45678,
+  hobbies:['hiking','sports','movies'],
+  city:'boston',
+  country:'USA',
+  profileLinks:{
+    facebook:'www.facebook.com/profile.php?id=343',
+    twitter:'www.twitter.com/@smithrow23',
+    github:'www.github.com/bettercallsmith'
+  },
+  language:['php','java','python'],
+  framework:['laravel','Django','bootstrap'],
+  address:{
+    street:'BA'
+  },
+  date:Date()
+})
 -----------------------------------------------------------------------------------
 
 db.persons.insertOne({name:'Htin kyaw',age:32},{writeConcern:{w: 0}})
@@ -56,6 +180,34 @@ db.sales.insertMany([{volume:100,target:120},{volume:89,target:80},{volume:200,t
 ----------------------------------------------------
 FIND FIELDS
 
+db.posts.count()
+  
+db.posts.find()
+
+db.posts.find().pretty()
+
+db.posts.find({category:'Programming'})
+
+db.posts.find({category:'Programming'}).pretty()
+
+db.posts.find({category:'Programming'}).count()
+
+db.posts.find().sort({title:1}).pretty()
+
+db.posts.find().sort({date:-1}).limit(2).pretty()
+
+db.posts.find().limit(2)
+
+db.posts.find().sort({title:-1}).limit(2)
+
+db.posts.find().forEach(function(doc){print('Blog Post: '+doc.title)})
+
+db.posts.findOne({category:'Programming'})
+
+db.posts.find({views:{$gt:6}}).pretty()
+
+db.posts.find({views:{$gte:6}}).pretty()
+
 db.persons.find({age: {$exists: true}}).pretty()
 
 db.persons.find({age: {$exists: false}}).pretty()
@@ -70,7 +222,7 @@ db.persons.find({age:{$type: "number"}}).pretty()
 
 db.persons.find({phone: {$type: "number"}}).pretty()
 
-db.sales.find({$expr: {$gt: ["volume","target"]}}).pretty() 
+db.sales.find({$expr: {$gt: ["volume","target"]}}).pretty()
 
 db.sales.find({$expr: {$gt: ["$volume","$target"]}}).pretty()
 
@@ -107,6 +259,35 @@ db.persons.find({"hobbies.frequency":{$gt:2}}).count()
 ---------------------------------------------------------------------------
 
 UPDATE FIELDS
+
+db.posts.update({title:'Title Four'},
+  {
+    title:'Title Four Updated',
+    body:'body four updated',
+    date:Date()
+  },
+  {
+    upsert:true
+  }
+  )
+
+db.posts.update({title:'Title Four Updated'},
+  {
+    $set:{
+      title:'Title Four',  
+      body:'body four',
+      category:'Social Media',
+      tags:['facebook','twitter','pin'],
+      date:Date()
+    }
+  }
+  )
+
+db.posts.update({title:'Title One'},{$inc:{likes:2}})
+
+db.posts.update({title:'Title One'},{$rename:{likes:'total_views'}})
+
+db.posts.update({title:'Title One'},{$set:{total_views:1000}})
 
 db.persons.updateOne({_id:ObjectId("5fab3d9dfd6b9fb42cc781f3")},{$set:{hobbies:[{title:'Sports',frequency:5},{title:'Cooking',frequency:3},{title:'Hiking',frequency:1}]}})
 
@@ -202,6 +383,8 @@ db.persons.updateOne({name:'Mg Mg'},{$addToSet:{hobbies:{title:'Hiking',frequenc
 
 DELETE FIELDS
 
+db.posts.remove({title:'Title Four'})
+
 db.persons.deleteOne({name:'Kyaw Kyaw'})
 
 db.persons.deleteMany({age:{$gt:30},isSporty:true})
@@ -214,5 +397,12 @@ db.persons.deleteMany({})
 
 db.persons.drop()
 
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+working with index
+
+db.posts.createIndex({title:'text'})
+
+db.posts.find({$text:{$search:"\"Title O\""}}).pretty()
 
 ```
